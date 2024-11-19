@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Nombres</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
+  <script>
+    function generadorNombre() {
+      return {
+        nombre: '',
+        apellido: '',
+        nombres: ['Carlos', 'Laura', 'Ana', 'Pedro', 'Lucía', 'Javier', 'María', 'Andrés', 'Carmen', 'Luis', 'Valeria', 'Roberto', 'Sofía', 'Juan', 'Isabel'],
+        apellidos: ['Gómez', 'Pérez', 'Rodríguez', 'Martínez', 'López', 'Hernández', 'García', 'Romero', 'Ruiz', 'Torres', 'Díaz', 'Vargas', 'Fernández', 'Castillo', 'Ortiz'],
+        generar() {
+          this.nombre = this.nombres[Math.floor(Math.random() * this.nombres.length)];
+          this.apellido = this.apellidos[Math.floor(Math.random() * this.apellidos.length)];
+        },
+        copiarNombre() {
+          navigator.clipboard.writeText(this.nombre).then(() => {
+          });
+        },
+        copiarApellido() {
+          navigator.clipboard.writeText(this.apellido).then(() => {
+          });
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-start justify-center mt-8">
+  <div x-data="generadorNombre()" class="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
+    <h1 class="text-2xl font-bold text-center mb-4 text-purple-600">Generador de Nombres</h1>
+    <div class="space-y-4">
+      <!-- Nombre -->
+      <div class="flex flex-col">
+        <label for="nombre" class="font-semibold text-gray-700">Nombre</label>
+        <input x-model="nombre" id="nombre" type="text" placeholder="Nombre" class="border rounded-md px-3 py-2 focus:ring focus:ring-purple-300 focus:outline-none" readonly>
+        <button @click="copiarNombre" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300">
+          Copiar Nombre
+        </button>
+      </div>
+      <!-- Apellido -->
+      <div class="flex flex-col">
+        <label for="apellido" class="font-semibold text-gray-700">Apellido</label>
+        <input x-model="apellido" id="apellido" type="text" placeholder="Apellido" class="border rounded-md px-3 py-2 focus:ring focus:ring-purple-300 focus:outline-none" readonly>
+        <button @click="copiarApellido" class="mt-2 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:ring focus:ring-green-300">
+          Copiar Apellido
+        </button>
+      </div>
+    </div>
+    <div class="mt-6 flex justify-center">
+      <button @click="generar" class="bg-purple-500 text-white px-4 py-2 rounded-md hover:bg-purple-600 focus:outline-none focus:ring focus:ring-purple-300">
+        Generar
+      </button>
+    </div>
+  </div>
+</body>
+</html>
